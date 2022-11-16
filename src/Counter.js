@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 // - Interesting, that's what Kyle said, but sometimes this works without that import statement
 // Component lets us write the Component class
 
+import { ThemeContext } from './App'
+
 export default class Counter extends Component {
     // All of the code in this class is a renderable React component
     constructor(props) {
@@ -23,12 +25,17 @@ export default class Counter extends Component {
         // this.props is a JS object containing anything we pass in
         console.log("render element")
         return (
-            <div>
-                <button onClick = {() => this.changeCount(-1)} >-</button>
-                <span>{this.state.count}</span>
-                <button onClick = {() => this.changeCount(+1)} >+</button>
-                <div>{JSON.stringify(this.props, null, 4)}</div>
-            </div>
+            <ThemeContext.Consumer>
+                {style => (
+                    <div>
+                        <button style={style} onClick = {() => this.changeCount(-1)} >-</button>
+                        <span>{this.state.count}</span>
+                        <button style={style} onClick = {() => this.changeCount(+1)} >+</button>
+                        <div>{JSON.stringify(this.props, null, 4)}</div>
+                    </div>                    
+            )}
+            </ThemeContext.Consumer>
+            
         )
     }
 
